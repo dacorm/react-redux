@@ -28,8 +28,31 @@ export function useState(initialState: any) {
     })()
 }
 
+export function useEffect(callback: () => void, dependencies: string[]) {
+    const id = globalId;
+    const parent = globalParent
+    globalId += 1;
 
-export function render(component: (props: any) => string, props: { propCount: number }, parent: HTMLElement) {
+    return (() => {
+        const { cache } = componentState.get(parent)
+        if (cache[id] == null) {
+            cache[id] = { dependencies: undefined }
+        }
+
+        const dependenciesChanged = dependencies == null || dependencies.some((dependency, i) => {
+            return cache[id].dependencies == null || cache[id].dependencies[i] !== dependency
+        })
+
+        if (dependenciesChanged) {
+            if (cache[id].cleanup != null) cache[id].cleanup()
+            cache[id].cleanup = callback()
+            cache[id].dependencies = dependencies
+        }
+
+    })()
+}
+
+export function render(component: (props: any) => string, props: { propCount: number, buttonElem: HTMLElement }, parent: HTMLElement) {
     const state = componentState.get(parent) || { cache: [] };
     componentState.set(parent, { ...state, component, props });
     globalParent = parent;
