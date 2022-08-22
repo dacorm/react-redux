@@ -2,13 +2,11 @@ import { render } from "./MyReact";
 import Component from "./Component";
 
 let propCount = 0
-document.getElementById('btn-prop').addEventListener('click', () => {
-    propCount += 1
-    renderComponent();
-})
 
 function renderComponent() {
-    render(Component, { propCount, buttonElem: document.getElementById('btn-count') }, document.getElementById('root'))
+    render(Component,
+        { propCount, buttonElem: document.getElementById('btn-count'),
+            buttonElemSecond: document.getElementById('btn-count-2'), }, document.getElementById('root'))
 }
 
 renderComponent();

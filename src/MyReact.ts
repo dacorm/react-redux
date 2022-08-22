@@ -52,7 +52,7 @@ export function useEffect(callback: () => void, dependencies: string[]) {
     })()
 }
 
-export function render(component: (props: any) => string, props: { propCount: number, buttonElem: HTMLElement }, parent: HTMLElement) {
+export function render(component: (props: any) => string, props: { propCount: number, buttonElem: HTMLElement, buttonElemSecond: HTMLElement }, parent: HTMLElement) {
     const state = componentState.get(parent) || { cache: [] };
     componentState.set(parent, { ...state, component, props });
     globalParent = parent;

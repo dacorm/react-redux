@@ -1,6 +1,6 @@
 import { useState, useEffect } from './MyReact'
 
-export default function Component({ propCount, buttonElem }: any) {
+export default function Component({ propCount, buttonElem, buttonElemSecond }: any) {
     const [count, setCount] = useState(0);
     const propCountDoubled = 0
 
@@ -11,10 +11,17 @@ export default function Component({ propCount, buttonElem }: any) {
         return () => buttonElem.removeEventListener('click', handler)
     }, [buttonElem])
 
+    useEffect(() => {
+        const handler = () => setCount((prevCount: number) => prevCount -= 1)
+        buttonElemSecond.addEventListener('click', handler);
+
+        return () => buttonElem.removeEventListener('click', handler)
+    }, [buttonElemSecond])
+
+
+
 
     return `
-        State: ${count}
-        Prop: ${propCount}
-        Prop Doubled: ${propCountDoubled}
+        Count: ${count}
 `
 }
