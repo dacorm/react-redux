@@ -1,5 +1,6 @@
 import { render } from "./MyReact";
 import Component from "./Component";
+import store from "../redux/state";
 
 let propCount = 0
 
@@ -9,4 +10,5 @@ function renderComponent() {
             buttonElemSecond: document.getElementById('btn-count-2'), }, document.getElementById('root'))
 }
 
-renderComponent();
+
+store.subscribe(renderComponent());
