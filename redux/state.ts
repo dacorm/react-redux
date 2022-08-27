@@ -10,14 +10,15 @@ const store = {
     getState() {
         return this._state
     },
-    subscribe(observer: void) {
-        this._rerender = observer
-    },
     _rerender() {
         console.log('state changed')
     },
+    subscribe(observer: void) {
+        this._rerender = observer
+    },
     dispatch(action: any) {
         this._state.mainPage = mainReducer(this._state.mainPage, action);
+        this._rerender(this._state);
     }
 }
 export const incrementActionCreator = () => {

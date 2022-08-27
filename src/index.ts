@@ -10,5 +10,4 @@ function renderComponent() {
             buttonElemSecond: document.getElementById('btn-count-2'), }, document.getElementById('root'))
 }
 
-
-store.subscribe(renderComponent());
+renderComponent();
